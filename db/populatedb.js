@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS users (
     username VARCHAR(50) UNIQUE NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     password TEXT NOT NULL,
-    membership_status VARCHAR(10) CHECK (membership_status IN ('user', 'admin')) NOT NULL
+    membership_status VARCHAR(10) CHECK (membership_status IN ('user', 'admin')) NOT NULL DEFAULT 'user'
 );
 
 CREATE TABLE IF NOT EXISTS messages (
