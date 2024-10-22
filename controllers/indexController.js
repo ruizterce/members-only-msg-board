@@ -1,6 +1,6 @@
-const pool = require("../db/pool");
 const db = require("../db/queries");
 const passport = require("passport");
+const genPassword = require("../lib/passwordUtils").genPassword;
 
 module.exports = {
   // GET REQUESTS
@@ -26,7 +26,8 @@ module.exports = {
   postRegister: async function (req, res) {
     try {
       const { first_name, last_name, username, email, password } = req.body;
-      await db.addUser(first_name, last_name, username, email, password);
+      const hashedPassword = await genPassword(password);
+      await db.addUser(first_name, last_name, username, email, hashedPassword);
       res.redirect("/");
     } catch (error) {
       console.error("Error registering user:", error);

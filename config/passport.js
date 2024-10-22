@@ -1,6 +1,7 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const pool = require("../db/pool");
+const validPassword = require("../lib/passwordUtils").validPassword;
 
 passport.use(
   new LocalStrategy(async (username, password, done) => {
@@ -14,8 +15,8 @@ passport.use(
       if (!user) {
         return done(null, false, { message: "Incorrect username" });
       }
-      // TODO compare hashed password
-      if (user.password !== password) {
+      const match = await validPassword(password, user.password);
+      if (!match) {
         return done(null, false, { message: "Incorrect password" });
       }
       return done(null, user);
