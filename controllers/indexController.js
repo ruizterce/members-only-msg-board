@@ -26,6 +26,9 @@ module.exports = {
       res.redirect("/");
     });
   },
+  getSendMessage: (req, res, next) => {
+    res.render("sendMessage");
+  },
 
   // POST REQUESTS
   postRegister: [
@@ -63,4 +66,13 @@ module.exports = {
     successRedirect: "/",
     failureRedirect: "/",
   }),
+  postSendMessage: async function (req, res) {
+    const { title, message } = req.body;
+    try {
+      db.addMessage(title, message, req.user.user_id);
+    } catch (error) {
+      console.error("Error sending message:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  },
 };

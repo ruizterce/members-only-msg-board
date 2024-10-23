@@ -1,0 +1,12 @@
+<% title = 'Send a message - Message Board'; %>
+
+<h1>Send a message</h1>
+<form method="POST" action="/sendMessage">
+  <label for="title">Title</label>
+  <input type="text" name="title" id="title" />
+
+  <label for="message">Message</label>
+  <textarea name="message" id="message"></textarea>
+
+  <input type="submit" value="Submit" />
+</form>

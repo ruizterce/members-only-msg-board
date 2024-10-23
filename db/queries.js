@@ -26,4 +26,15 @@ module.exports = {
       throw new Error("Could not store user. Please try again later.");
     }
   },
+  addMessage: async (title, text, user_id) => {
+    try {
+      await pool.query(
+        "INSERT INTO messages (title, text, author_id) VALUES ($1, $2, $3)",
+        [title, text, user_id]
+      );
+    } catch (error) {
+      console.error("Error storing message:", error);
+      throw new Error("Could not store message. Please try again later.");
+    }
+  },
 };
