@@ -1,6 +1,8 @@
 const db = require("../db/queries");
 const passport = require("passport");
 const genPassword = require("../lib/passwordUtils").genPassword;
+const { validationResult } = require("express-validator");
+const validateRegister = require("../validators/registerValidator");
 
 module.exports = {
   // GET REQUESTS
@@ -8,7 +10,10 @@ module.exports = {
     res.render("index", { user: req.user });
   },
   getRegister: (req, res, next) => {
-    res.render("register");
+    res.render("register", {
+      formData: {},
+      errors: [],
+    });
   },
   getLogin: (req, res, next) => {
     res.render("login");
@@ -23,17 +28,33 @@ module.exports = {
   },
 
   // POST REQUESTS
-  postRegister: async function (req, res) {
-    try {
-      const { first_name, last_name, username, email, password } = req.body;
-      const hashedPassword = await genPassword(password);
-      await db.addUser(first_name, last_name, username, email, hashedPassword);
-      res.redirect("/");
-    } catch (error) {
-      console.error("Error registering user:", error);
-      res.status(500).send("Internal Server Error");
-    }
-  },
+  postRegister: [
+    validateRegister,
+    async function (req, res) {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).render("register", {
+          errors: errors.array(),
+          formData: req.body,
+        });
+      }
+      try {
+        const { first_name, last_name, username, email, password } = req.body;
+        const hashedPassword = await genPassword(password);
+        await db.addUser(
+          first_name,
+          last_name,
+          username,
+          email,
+          hashedPassword
+        );
+        res.redirect("/");
+      } catch (error) {
+        console.error("Error registering user:", error);
+        res.status(500).send("Internal Server Error");
+      }
+    },
+  ],
   postLogin: passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/",

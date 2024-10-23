@@ -1,14 +1,62 @@
 <% title = 'Register - Message Board'; %>
 
 <h1>Register</h1>
+
 <form method="POST" action="/register">
-  Username <input type="text" name="username" id="username" /> Password
-  <input type="password" name="password" id="password" />
-  First Name <input type="text" name="first_name" id="first_name" /> Last Name
-  <input type="text" name="last_name" id="last_name" /> Email<input
+  <label for="username">Username</label>
+  <input
+    type="text"
+    name="username"
+    id="username"
+    value="<%= formData && formData.username ? formData.username : '' %>"
+  />
+  <% if (errors && errors.find(e => e.path === 'username')) { %>
+  <p class="error"><%= errors.find(e => e.path === 'username').msg %></p>
+  <% } %>
+
+  <label for="password">Password</label>
+  <input
+    type="password"
+    name="password"
+    id="password"
+    value="<%= formData && formData.password ? formData.password : '' %>"
+  />
+  <% if (errors && errors.find(e => e.path === 'password')) { %>
+  <p class="error"><%= errors.find(e => e.path === 'password').msg %></p>
+  <% } %>
+
+  <label for="first_name">First Name</label>
+  <input
+    type="text"
+    name="first_name"
+    id="first_name"
+    value="<%= formData && formData.first_name ? formData.first_name : '' %>"
+  />
+  <% if (errors && errors.find(e => e.path === 'first_name')) { %>
+  <p class="error"><%= errors.find(e => e.path === 'first_name').msg %></p>
+  <% } %>
+
+  <label for="last_name">Last Name</label>
+  <input
+    type="text"
+    name="last_name"
+    id="last_name"
+    value="<%= formData && formData.last_name ? formData.last_name : '' %>"
+  />
+  <% if (errors && errors.find(e => e.path === 'last_name')) { %>
+  <p class="error"><%= errors.find(e => e.path === 'last_name').msg %></p>
+  <% } %>
+
+  <label for="email">Email</label>
+  <input
     type="email"
     name="email"
     id="email"
+    value="<%= formData && formData.email ? formData.email : '' %>"
   />
-  <input type="submit" value="Submit" />
+  <% if (errors && errors.find(e => e.path === 'email')) { %>
+  <p class="error"><%= errors.find(e => e.path === 'email').msg %></p>
+  <% } %>
+
+  <button type="submit">Register</button>
 </form>
