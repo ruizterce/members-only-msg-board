@@ -71,5 +71,9 @@
   <p class="error"><%= errors.find(e => e.path === 'email').msg %></p>
   <% } %>
 
+  <label for="is_admin">Are you an Admin?</label>
+  <input type="checkbox" name="is_admin" id="is_admin" value="true" <%= formData
+  && formData.is_admin ? 'checked' : null %> />
+
   <button type="submit">Register</button>
 </form>

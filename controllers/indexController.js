@@ -31,6 +31,7 @@ module.exports = {
   postRegister: [
     validateRegister,
     async function (req, res) {
+      console.log(req.body);
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).render("register", {
@@ -39,14 +40,17 @@ module.exports = {
         });
       }
       try {
-        const { first_name, last_name, username, email, password } = req.body;
+        const { first_name, last_name, username, email, password, is_admin } =
+          req.body;
         const hashedPassword = await genPassword(password);
+        const membership_status = is_admin ? "admin" : "user";
         await db.addUser(
           first_name,
           last_name,
           username,
           email,
-          hashedPassword
+          hashedPassword,
+          membership_status
         );
         res.redirect("/");
       } catch (error) {
