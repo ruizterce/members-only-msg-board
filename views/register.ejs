@@ -25,6 +25,19 @@
   <p class="error"><%= errors.find(e => e.path === 'password').msg %></p>
   <% } %>
 
+  <label for="confirm_password">Confirm Password</label>
+  <input
+    type="password"
+    name="confirm_password"
+    id="confirm_password"
+    value="<%= formData && formData.confirm_password ? formData.confirm_password : '' %>"
+  />
+  <% if (errors && errors.find(e => e.path === 'confirm_password')) { %>
+  <p class="error">
+    <%= errors.find(e => e.path === 'confirm_password').msg %>
+  </p>
+  <% } %>
+
   <label for="first_name">First Name</label>
   <input
     type="text"

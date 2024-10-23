@@ -3,6 +3,7 @@ const { body } = require("express-validator");
 const alphaErr = "must only contain letters.";
 const lengthErr = "must be between 1 and 10 characters.";
 const passwordLengthErr = "must be at least 6 characters long.";
+const passwordMatchErr = "must match Password";
 const emailErr = "must be a valid email address.";
 
 const validateRegister = [
@@ -15,6 +16,12 @@ const validateRegister = [
     .trim()
     .isLength({ min: 6 })
     .withMessage(`Password ${passwordLengthErr}`),
+
+  body("confirm_password")
+    .custom((value, { req }) => {
+      return value === req.body.password;
+    })
+    .withMessage(`Confirm Password ${passwordMatchErr}`),
 
   body("first_name")
     .trim()
