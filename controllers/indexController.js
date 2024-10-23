@@ -6,8 +6,9 @@ const validateRegister = require("../validators/registerValidator");
 
 module.exports = {
   // GET REQUESTS
-  get: (req, res) => {
-    res.render("index", { user: req.user });
+  get: async (req, res) => {
+    const messages = await db.getAllMessages();
+    res.render("index", { messages: messages });
   },
   getRegister: (req, res, next) => {
     res.render("register", {

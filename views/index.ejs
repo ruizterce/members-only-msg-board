@@ -1,12 +1,17 @@
 <% title = 'Index - Message Board'; %>
 
 <h1>Index</h1>
-<% if (locals.user) {%>
-<h2>You are logged in as: <%= user.username %></h2>
+<% if (locals.currentUser) {%>
+<h2>You are logged in as: <%= currentUser.username %></h2>
+<a href="/sendMessage">Send Message</a>
 <a href="/logout">Logout</a>
 <% } else { %>
 <h2>You are not logged in</h2>
 <a href="/login">Login</a>
-<% } %>
-
 <a href="/register">Register</a>
+<% } %> <% messages.forEach(message => { console.log(message)%>
+<div>
+  <h2><%= message.title %></h2>
+  <p><%= message.text %></p>
+</div>
+<%})%>
