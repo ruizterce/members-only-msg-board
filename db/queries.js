@@ -41,7 +41,9 @@ module.exports = {
 
   getAllMessages: async () => {
     try {
-      const { rows } = await pool.query("SELECT * FROM messages");
+      const { rows } = await pool.query(
+        "SELECT message_id, timestamp, title, text, author_id, username FROM messages LEFT JOIN users ON messages.author_id = users.user_id"
+      );
       return rows;
     } catch (error) {
       console.error("Error retrieving messages:", error);
