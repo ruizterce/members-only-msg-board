@@ -6,7 +6,10 @@ const indexController = require("../controllers/indexController");
 indexRouter.post("/login", indexController.postLogin);
 indexRouter.post("/register", indexController.postRegister);
 indexRouter.post("/sendMessage", indexController.postSendMessage);
-
+indexRouter.post(
+  "/deleteMessage/:message_id",
+  indexController.postDeleteMessage
+);
 // GET ROUTES
 indexRouter.get("/login", indexController.getLogin);
 indexRouter.get("/register", indexController.getRegister);

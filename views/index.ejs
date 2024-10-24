@@ -12,6 +12,25 @@
 <% } %> <% messages.forEach(message => { console.log(message)%>
 <div>
   <h2><%= message.title %></h2>
+  <% if (locals.currentUser) {%>
+  <div><%= message.author_id %> <%= message.timestamp %></div>
+  <% } %>
   <p><%= message.text %></p>
+  <% if (locals.currentUser && locals.currentUser.membership_status === 'admin')
+  {%>
+  <form
+    action="/deleteMessage/<%= message.message_id %>"
+    method="POST"
+    onsubmit="return confirmDelete()"
+  >
+    <button type="submit">Delete message</button>
+  </form>
+  <% } %>
 </div>
 <%})%>
+
+<script>
+  function confirmDelete() {
+    return confirm("Are you sure you want to delete this message?");
+  }
+</script>

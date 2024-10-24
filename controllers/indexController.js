@@ -70,9 +70,22 @@ module.exports = {
   postSendMessage: async function (req, res) {
     const { title, message } = req.body;
     try {
-      db.addMessage(title, message, req.user.user_id);
+      await db.addMessage(title, message, req.user.user_id);
+      res.redirect("/");
     } catch (error) {
       console.error("Error sending message:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  },
+  postDeleteMessage: async function (req, res) {
+    if (req.user.membership_status !== "admin") {
+      return res.status(403).send("Unauthorized");
+    }
+    try {
+      await db.deleteMessageById(req.params.message_id);
+      res.redirect("/");
+    } catch {
+      console.error("Error deleting message:", error);
       res.status(500).send("Internal Server Error");
     }
   },

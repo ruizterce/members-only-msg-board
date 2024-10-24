@@ -48,4 +48,18 @@ module.exports = {
       throw new Error("Could not retrieve messages. Please try again later.");
     }
   },
+
+  deleteMessageById: async (message_id) => {
+    try {
+      await pool.query("DELETE FROM messages WHERE message_id = $1", [
+        message_id,
+      ]);
+      return;
+    } catch (error) {
+      console.error(`Error deleting message ${message_id}:`, error);
+      throw new Error(
+        `Could not delete message ${message_id}. Please try again later.`
+      );
+    }
+  },
 };
