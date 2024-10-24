@@ -1,14 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= title || "Members Only Message Board" %></title>
+    <link href="/css/output.css" rel="stylesheet" />
   </head>
-  <body>
+  <body class="bg-gray-50 text-gray-900 flex flex-col h-screen">
     <%- include('partials/header') %>
 
-    <div><%- body %></div>
+    <main class="flex-grow container mx-auto p-6 overflow-auto">
+      <%- body %>
+    </main>
 
     <%- include('partials/footer') %>
   </body>

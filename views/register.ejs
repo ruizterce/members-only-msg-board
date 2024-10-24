@@ -1,79 +1,144 @@
 <% title = 'Register - Message Board'; %>
 
-<h1>Register</h1>
+<h1 class="text-3xl font-bold text-center mb-6">Register</h1>
 
-<form method="POST" action="/register">
-  <label for="username">Username</label>
-  <input
-    type="text"
-    name="username"
-    id="username"
-    value="<%= formData && formData.username ? formData.username : '' %>"
-  />
-  <% if (errors && errors.find(e => e.path === 'username')) { %>
-  <p class="error"><%= errors.find(e => e.path === 'username').msg %></p>
-  <% } %>
+    <form class="space-y-4 max-w-md mx-auto" method="POST" action="/register">
+      <div class="rounded-md shadow-sm">
 
-  <label for="password">Password</label>
-  <input
-    type="password"
-    name="password"
-    id="password"
-    value="<%= formData && formData.password ? formData.password : '' %>"
-  />
-  <% if (errors && errors.find(e => e.path === 'password')) { %>
-  <p class="error"><%= errors.find(e => e.path === 'password').msg %></p>
-  <% } %>
+        <div class="mb-4">
+          <label for="username" class="block text-sm font-medium text-gray-700"
+            >Username</label
+          >
+          <input
+            type="text"
+            name="username"
+            id="username"
+            class="input-field"
+            placeholder="Enter your username"
+            value="<%= formData && formData.username ? formData.username : '' %>"
+          />
+          <% if (errors && errors.find(e => e.path === 'username')) { %>
+          <p class="text-red-500 text-xs mt-2">
+            <%= errors.find(e => e.path === 'username').msg %>
+          </p>
+          <% } %>
+        </div>
 
-  <label for="confirm_password">Confirm Password</label>
-  <input
-    type="password"
-    name="confirm_password"
-    id="confirm_password"
-    value="<%= formData && formData.confirm_password ? formData.confirm_password : '' %>"
-  />
-  <% if (errors && errors.find(e => e.path === 'confirm_password')) { %>
-  <p class="error">
-    <%= errors.find(e => e.path === 'confirm_password').msg %>
-  </p>
-  <% } %>
+        <div class="mb-4">
+          <label for="password" class="block text-sm font-medium text-gray-700"
+            >Password</label
+          >
+          <input
+            type="password"
+            name="password"
+            id="password"
+            class="input-field"
+            placeholder="Enter your password"
+            value="<%= formData && formData.password ? formData.password : '' %>"
+          />
+          <% if (errors && errors.find(e => e.path === 'password')) { %>
+          <p class="text-red-500 text-xs mt-2">
+            <%= errors.find(e => e.path === 'password').msg %>
+          </p>
+          <% } %>
+        </div>
 
-  <label for="first_name">First Name</label>
-  <input
-    type="text"
-    name="first_name"
-    id="first_name"
-    value="<%= formData && formData.first_name ? formData.first_name : '' %>"
-  />
-  <% if (errors && errors.find(e => e.path === 'first_name')) { %>
-  <p class="error"><%= errors.find(e => e.path === 'first_name').msg %></p>
-  <% } %>
+        <div class="mb-4">
+          <label
+            for="confirm_password"
+            class="block text-sm font-medium text-gray-700"
+            >Confirm Password</label
+          >
+          <input
+            type="password"
+            name="confirm_password"
+            id="confirm_password"
+            class="input-field"
+            placeholder="Confirm your password"
+            value="<%= formData && formData.confirm_password ? formData.confirm_password : '' %>"
+          />
+          <% if (errors && errors.find(e => e.path === 'confirm_password')) { %>
+          <p class="text-red-500 text-xs mt-2">
+            <%= errors.find(e => e.path === 'confirm_password').msg %>
+          </p>
+          <% } %>
+        </div>
 
-  <label for="last_name">Last Name</label>
-  <input
-    type="text"
-    name="last_name"
-    id="last_name"
-    value="<%= formData && formData.last_name ? formData.last_name : '' %>"
-  />
-  <% if (errors && errors.find(e => e.path === 'last_name')) { %>
-  <p class="error"><%= errors.find(e => e.path === 'last_name').msg %></p>
-  <% } %>
+        <div class="mb-4">
+          <label
+            for="first_name"
+            class="block text-sm font-medium text-gray-700"
+            >First Name</label
+          >
+          <input
+            type="text"
+            name="first_name"
+            id="first_name"
+            class="input-field"
+            placeholder="Enter your first name"
+            value="<%= formData && formData.first_name ? formData.first_name : '' %>"
+          />
+          <% if (errors && errors.find(e => e.path === 'first_name')) { %>
+          <p class="text-red-500 text-xs mt-2">
+            <%= errors.find(e => e.path === 'first_name').msg %>
+          </p>
+          <% } %>
+        </div>
 
-  <label for="email">Email</label>
-  <input
-    type="email"
-    name="email"
-    id="email"
-    value="<%= formData && formData.email ? formData.email : '' %>"
-  />
-  <% if (errors && errors.find(e => e.path === 'email')) { %>
-  <p class="error"><%= errors.find(e => e.path === 'email').msg %></p>
-  <% } %>
+        <div class="mb-4">
+          <label for="last_name" class="block text-sm font-medium text-gray-700"
+            >Last Name</label
+          >
+          <input
+            type="text"
+            name="last_name"
+            id="last_name"
+            class="input-field"
+            placeholder="Enter your last name"
+            value="<%= formData && formData.last_name ? formData.last_name : '' %>"
+          />
+          <% if (errors && errors.find(e => e.path === 'last_name')) { %>
+          <p class="text-red-500 text-xs mt-2">
+            <%= errors.find(e => e.path === 'last_name').msg %>
+          </p>
+          <% } %>
+        </div>
 
-  <label for="is_admin">Are you an Admin?</label>
-  <input type="checkbox" name="is_admin" id="is_admin" value="true" <%= formData
-  && formData.is_admin ? 'checked' : null %> />
+        <div class="mb-4">
+          <label for="email" class="block text-sm font-medium text-gray-700"
+            >Email</label
+          >
+          <input
+            type="email"
+            name="email"
+            id="email"
+            class="input-field"
+            placeholder="Enter your email"
+            value="<%= formData && formData.email ? formData.email : '' %>"
+          />
+          <% if (errors && errors.find(e => e.path === 'email')) { %>
+          <p class="text-red-500 text-xs mt-2">
+            <%= errors.find(e => e.path === 'email').msg %>
+          </p>
+          <% } %>
+        </div>
 
-  <button type="submit">Register</button>
-</form>
+        <div class="mb-6">
+          <label for="is_admin" class="flex items-center">
+            <input type="checkbox" name="is_admin" id="is_admin" class="mr-2 h-4
+            w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+            value="true" <%= formData && formData.is_admin ? 'checked' : '' %>
+            />
+            <span class="text-sm font-medium text-gray-700"
+              >Are you an Admin?</span
+            >
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <button type="submit" class="btn-primary w-full">Register</button>
+      </div>
+    </form>
+  </div>
+</div>

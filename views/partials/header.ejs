@@ -1,3 +1,19 @@
-<header>
-  <a href="/"> Index </a>
+<header class="bg-emerald-700 text-white p-4">
+  <div class="container mx-auto flex justify-between">
+    <a href="/" class="text-xl font-bold hover:text-yellow-400"
+      >Message Board</a
+    >
+    <nav class="space-x-4">
+      <% if (locals.currentUser) { %>
+      <span class="text-sm">Logged in as: <%= currentUser.username %></span>
+      <a href="/sendMessage" class="hover:text-yellow-400">Send Message</a>
+      <a href="/logout" class="hover:text-yellow-400">Logout</a>
+
+      <% } else { %>
+      <span class="text-sm">Not logged in</span>
+      <a href="/login" class="hover:text-yellow-400">Login</a>
+      <a href="/register" class="hover:text-yellow-400">Register</a>
+      <% } %>
+    </nav>
+  </div>
 </header>

@@ -1,33 +1,34 @@
 <% title = 'Index - Message Board'; %>
 
-<h1>Index</h1>
-<% if (locals.currentUser) {%>
-<h2>You are logged in as: <%= currentUser.username %></h2>
-<a href="/sendMessage">Send Message</a>
-<a href="/logout">Logout</a>
-<% } else { %>
-<h2>You are not logged in</h2>
-<a href="/login">Login</a>
-<a href="/register">Register</a>
-<% } %> <% messages.forEach(message => { console.log(message)%>
-<div>
-  <h2><%= message.title %></h2>
-  <% if (locals.currentUser) {%>
-  <div><%= message.author_id %> <%= message.timestamp %></div>
-  <% } %>
-  <p><%= message.text %></p>
-  <% if (locals.currentUser && locals.currentUser.membership_status === 'admin')
-  {%>
-  <form
-    action="/deleteMessage/<%= message.message_id %>"
-    method="POST"
-    onsubmit="return confirmDelete()"
-  >
-    <button type="submit">Delete message</button>
-  </form>
-  <% } %>
+<div class="space-y-6">
+  <% messages.forEach(message => { %>
+  <div class="bg-white shadow-md rounded-lg p-4">
+    <h2 class="text-xl font-semibold"><%= message.title %></h2>
+
+    <% if (locals.currentUser) { %>
+    <div class="text-gray-500 text-sm mb-2">
+      Posted by <%= message.author_id %> on <%= message.timestamp %>
+    </div>
+    <% } %>
+
+    <p class="text-gray-700"><%= message.text %></p>
+
+    <% if (locals.currentUser && locals.currentUser.membership_status ===
+    'admin') { %>
+    <form
+      class="mt-4"
+      action="/deleteMessage/<%= message.message_id %>"
+      method="POST"
+      onsubmit="return confirmDelete()"
+    >
+      <button type="submit" class="text-red-500 hover:underline">
+        Delete message
+      </button>
+    </form>
+    <% } %>
+  </div>
+  <% }) %>
 </div>
-<%})%>
 
 <script>
   function confirmDelete() {
